@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+  web:
+    build: .
+    working_dir: /app
+    command: python3 manage.py runserver 0.0.0.0:4000
+    volumes:
+      - .:/app
+    ports:
+      - "4000:4000"
+    links:
+      - mysqsl
+  mysql:
+
+        container_name: "mysql"
+        build:
+          context: ./docker/mysql
+        restart: always
+        environment:
+          - MYSQL_DATABASE=hc
+          - MYSQL_USER=health
+          - MYSQL_PASSWORD=ldf@health123
+          - MYSQL_ROOT_PASSWORD=lbr123
+        volumes:
+          - data:/var/lib/mysql
+        depends_on:
+          - web
+        command: ["mysqld"]
+        ports:
+          - "3306:3306"
+        expose:
+          - "3306"
+        networks:
+          - backend
