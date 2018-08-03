@@ -5,6 +5,13 @@ services:
     build: .
     working_dir: /app
     command: python3 manage.py runserver 0.0.0.0:4000
+    environment:
+          - DB_ENGINE= django.db.backends.mysql
+          - DB_NAME = hcabc
+          - DB_USER = abc
+          - DB_PASSWORD=abc
+          - URL = http://url
+          - EMAIL = abc@abc.com
     volumes:
       - .:/app
     ports:
@@ -18,10 +25,10 @@ services:
           context: ./docker/mysql
         restart: always
         environment:
-          - MYSQL_DATABASE=hc
-          - MYSQL_USER=health
-          - MYSQL_PASSWORD=ldf@health123
-          - MYSQL_ROOT_PASSWORD=lbr123
+          - MYSQL_DATABASE=abchc
+          - MYSQL_USER=abc
+          - MYSQL_PASSWORD=abc
+          - MYSQL_ROOT_PASSWORD=abc
         volumes:
           - data:/var/lib/mysql
         depends_on:
