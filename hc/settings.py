@@ -106,7 +106,9 @@ if os.environ.get("DB") == "mysql":
             'ENGINE': 'django.db.backends.mysql',
             'USER': 'root',
             'NAME': 'hc',
-            'TEST': {'CHARSET': 'UTF8'}
+            'HOST': 'mysql', #docker-compose.yml services:db:
+            'PORT': '3306',
+            'PASSWORD': 'lbr123'
         }
     }
 

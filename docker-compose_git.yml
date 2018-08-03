@@ -1,0 +1,43 @@
+version: '2'
+
+services:
+  web:
+    build: .
+    image: 'healthcheck'
+    working_dir: /app
+    command: python3 manage.py runserver 0.0.0.0:4000
+    environment:
+          - DB_ENGINE= django.db.backends.mysql
+          - DB_NAME = hcabc
+          - DB_USER = abc
+          - DB_PASSWORD=abc
+          - URL = http://url
+          - EMAIL = abc@abc.com
+    volumes:
+      - .:/app
+    ports:
+      - "4000:4000"
+    links:
+      - mysqsl
+  mysql:
+
+        container_name: "mysql"
+        build:
+          context: ./docker/mysql
+        restart: always
+        environment:
+          - MYSQL_DATABASE=abchc
+          - MYSQL_USER=abc
+          - MYSQL_PASSWORD=abc
+          - MYSQL_ROOT_PASSWORD=abc
+        volumes:
+          - data:/var/lib/mysql
+        depends_on:
+          - web
+        command: ["mysqld"]
+        ports:
+          - "3306:3306"
+        expose:
+          - "3306"
+        networks:
+          - backend
